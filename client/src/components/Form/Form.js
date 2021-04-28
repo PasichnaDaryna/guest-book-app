@@ -70,6 +70,7 @@ function Form({ onSubmit }) {
                     label="Message"
                     variant="outlined"
                     multiline
+                // rowsMax={4}
 
                 />
 
