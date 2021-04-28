@@ -17,6 +17,13 @@ export const getContacts = async (req, res) => {
 }
 
 
-export const createContact = (req, res) => {
-    res.send('Contact Creation')
+export const createContact = async (req, res) => {
+    const contact = req.body
+    const newContact = new ContactMessage(post)
+    try {
+        await newPost.save()
+        res.status(201).json(newContact)
+    } catch (error) {
+        res.status(409).json({ message: error.message })
+    }
 }

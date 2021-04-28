@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import T from 'prop-types';
-// import shortid from 'shortid';
-import s from './Form.module.css'
+import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import useStyles from './styles';
+
+import shortid from 'shortid';
+
 
 function Form({ onSubmit }) {
 
@@ -28,6 +30,8 @@ function Form({ onSubmit }) {
         }
     };
 
+    const classes = useStyles();
+
     const handleSubmit = e => {
         e.preventDefault();
         onSubmit(name, message);
@@ -38,40 +42,46 @@ function Form({ onSubmit }) {
         setName('');
         setMessage('');
     };
+
     return (
-        <form id="contact" onSubmit={handleSubmit}>
-            <label>
-                Name
-        <input
-                    className="input-field"
+        <Paper className={classes.paper}>
+            <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} id="contact" onSubmit={handleSubmit}>
+
+                <TextField
+
                     type="text"
                     name="name"
                     value={name}
                     onChange={handleChange}
-                    placeholder="John Dows"
+                    label="name"
+                    variant="outlined"
                 />
-            </label>
-            <br />
-            <label>
-                Message
-        <textarea
-                    className="input-field"
+
+
+
+                <TextField
+
+
                     type="text"
                     name="message"
                     value={message}
                     onChange={handleChange}
-                    placeholder="Add message"
-                />
-            </label>
 
-            <button type="submit" className="submit-button">
-                Add comment
-      </button>
-        </form>
-    );
+                    label="Message"
+                    variant="outlined"
+                    multiline
+
+                />
+
+
+
+                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
+
+            </form>
+        </Paper>
+    )
+
 }
-Form.propTypes = {
-    onSubmit: T.func.isRequired,
-};
+
 
 export default Form;

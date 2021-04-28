@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
+import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
 
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import shortid from 'shortid';
-import Container from './components/Container/Container';
+// import Container from './components/Container/Container';
+import useStyles from './styles'
 import Form from './components/Form/Form';
 
 import List from './components/List/List';
 
 function App() {
+  const classes = useStyles();
   const [contacts, setContacts] = useState(() => {
     return JSON.parse(localStorage.getItem('contacts')) ?? [];
   });
@@ -48,19 +51,34 @@ function App() {
   };
 
   return (
-    <Container>
-      <h1>Phonebook</h1>
-      <Form onSubmit={addContact} />
-      <h2>Comments</h2>
+    <Container maxWidth="lg">
+      <AppBar className={classes.appBar} position="static" color="inherit">
+        <Typography className={classes.heading} variant="h2" align="center">Guest Book</Typography>
 
+      </AppBar>
+      <Grow in>
+        <Container>
+          <Grid container justify="space-between" alignItems="stretch" spacing={3}>
+            <Grid item xs={12} sm={4}>
+              <Form onSubmit={addContact} />
 
-      <List
-        contacts={getVisibleContacts()}
+            </Grid>
+            <Grid item xs={12} sm={7}>
+              <List
+                contacts={getVisibleContacts()}
 
-      />
-
-      <ToastContainer autoClose={3700} />
+              />
+            </Grid>
+          </Grid>
+        </Container>
+      </Grow>
     </Container>
+
+
+
+
+
+
   );
 }
 

@@ -1,16 +1,20 @@
 import React from 'react';
 
 import Form from "../Form/Form"
+import { Grid, CircularProgress } from '@material-ui/core';
+
+import useStyles from './styles'
 
 
-
-import T from 'prop-types';
 
 function List({ contacts }) {
+
+    const classes = useStyles();
     return (
-        <ul className="contact-list">
+        < Grid className={classes.container} container alignItems="stretch" spacing={3}>
             {contacts.map(({ id, name, message }) => (
-                <li key={id}>
+
+                <Grid key={id} item xs={12} sm={6} md={6}>
                     <p>
                         <b>{name} </b>
 
@@ -19,21 +23,12 @@ function List({ contacts }) {
 
 
 
-                </li>
+                </Grid>
             ))
             }
-        </ul >
+        </Grid >
     );
 }
 
-List.propTypes = {
-    contacts: T.arrayOf(
-        T.shape({
-            id: T.string.isRequired,
-            name: T.string.isRequired,
-
-        }),
-    )
-};
 
 export default List
