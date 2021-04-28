@@ -2,7 +2,14 @@ import { useState } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import useStyles from './styles';
 
+import FileBase from 'react-file-base64';
+
 import shortid from 'shortid';
+import { useDispatch } from 'react-redux'
+import { createContact } from '../../actions/contacts';
+
+
+
 
 
 function Form({ onSubmit }) {
@@ -10,6 +17,8 @@ function Form({ onSubmit }) {
 
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
+
+    const dispatch = useDispatch()
 
 
 
@@ -35,6 +44,7 @@ function Form({ onSubmit }) {
     const handleSubmit = e => {
         e.preventDefault();
         onSubmit(name, message);
+        // dispatch(createContact(name, message))
         resetInput();
     };
 
@@ -46,15 +56,16 @@ function Form({ onSubmit }) {
     return (
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} id="contact" onSubmit={handleSubmit}>
-
+                <Typography variant="h6" >Add your message</Typography>
                 <TextField
 
                     type="text"
                     name="name"
                     value={name}
                     onChange={handleChange}
-                    label="name"
+                    label="Name"
                     variant="outlined"
+                    fullWidth
                 />
 
 
@@ -70,6 +81,7 @@ function Form({ onSubmit }) {
                     label="Message"
                     variant="outlined"
                     multiline
+                    fullWidth
                 // rowsMax={4}
 
                 />

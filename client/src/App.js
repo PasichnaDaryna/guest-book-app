@@ -6,21 +6,24 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import shortid from 'shortid';
+import { useDispatch } from 'react-redux';
 // import Container from './components/Container/Container';
 import useStyles from './styles'
 import Form from './components/Form/Form';
 
 import List from './components/List/List';
+import { getContacts } from './actions/contacts'
 
 function App() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [contacts, setContacts] = useState(() => {
     return JSON.parse(localStorage.getItem('contacts')) ?? [];
   });
 
   useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+    dispatch(getContacts())
+  }, [dispatch]);
 
   const [filter, setFilter] = useState('');
 
@@ -53,7 +56,7 @@ function App() {
   return (
     <Container maxWidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">Guest Book</Typography>
+        <Typography className={classes.heading} variant="h2" align="center">Welcome to our Guest Book</Typography>
 
       </AppBar>
       <Grow in>
